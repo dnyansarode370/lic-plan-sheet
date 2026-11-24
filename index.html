@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1-Page LIC Plan Highlight Sheet</title>
+  <style>
+    :root {
+      --navy: #0f294a;
+      --gold: #c59b27;
+      --gold-light: #fdf8e8;
+      --bg: #eef2f6;
+      --card: #ffffff;
+      --text: #1c2833;
+      --muted: #5d6d7e;
+      --border: #dce3ec;
+      --accent-bg: #f4f7fb;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Segoe UI", Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding: 20px;
+      line-height: 1.4;
+    }
+
+    .app-shell {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    /* Left Input Panel */
+    .controls {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      box-shadow: 0 4px 14px rgba(15, 41, 74, 0.06);
+    }
+
+    .controls h2 {
+      font-size: 16px;
+      color: var(--navy);
+      margin-bottom: 10px;
+      border-bottom: 2px solid var(--gold);
+      padding-bottom: 6px;
+    }
+
+    .field {
+      margin-bottom: 10px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 3px;
+    }
+
+    .field input, .field select {
+      width: 100%;
+      padding: 7px 9px;
+      border: 1px solid #c5d0de;
+      border-radius: 6px;
+      font-size: 13px;
+      color: var(--text);
+      background: #fff;
+    }
+
+    .row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    button {
+      flex: 1;
+      padding: 9px 12px;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-print {
+      background: var(--navy);
+      color: #fff;
+    }
+
+    .btn-reset {
+      background: #e5ebf2;
+      color: var(--navy);
+    }
+
+    /* Right A4 Sheet */
+    .a4-sheet {
+      width: 210mm;
+      min-height: 297mm;
+      background: var(--card);
+      margin: 0 auto;
+      padding: 12mm 14mm;
+      border-radius: 6px;
+      box-shadow: 0 8px 24px rgba(15, 41, 74, 0.12);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-top: 6px solid var(--navy);
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 1.5px solid var(--gold);
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+    }
+
+    .brand-tag {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--gold);
+    }
+
+    .plan-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--navy);
+      margin-top: 2px;
+    }
+
+    .uin-line {
+      font-size: 11.5px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .client-badge {
+      background: var(--gold-light);
+      border: 1px solid var(--gold);
+      border-radius: 8px;
+      padding: 7px 12px;
+      text-align: right;
+      min-width: 195px;
+    }
+
+    .client-badge .for-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .client-badge .client-name {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--navy);
+    }
+
+    .client-badge .client-meta {
+      font-size: 11.5px;
+      color: var(--text);
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .kpi-card {
+      background: var(--accent-bg);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: 8px 10px;
+    }
+
+    .kpi-card .k-label {
+      font-size: 10.5px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .kpi-card .k-val {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--navy);
+      margin-top: 2px;
+    }
+
+    .kpi-card .k-sub {
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 1px;
+    }
+
+    .pay-receive-box {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1.1fr;
+      gap: 10px;
+      background: var(--navy);
+      color: #fff;
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-bottom: 10px;
+    }
+
+    .pr-item .pr-label {
+      font-size: 10.5px;
+      opacity: 0.85;
+    }
+
+    .pr-item .pr-amt {
+      font-size: 16px;
+      font-weight: 800;
+      color: #f7dc6f;
+      margin-top: 2px;
+    }
+
+    .pr-item .pr-note {
+      font-size: 10px;
+      opacity: 0.9;
+      margin-top: 2px;
+    }
+
+    .highlights-box {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-bottom: 10px;
+      background: #fff;
+    }
+
+    .highlights-box h3 {
+      font-size: 13px;
+      color: var(--navy);
+      margin-bottom: 6px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 4px;
+    }
+
+    .highlights-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px 14px;
+      font-size: 11.5px;
+    }
+
+    .highlights-list li {
+      position: relative;
+      padding-left: 12px;
+    }
+
+    .highlights-list li::before {
+      content: "•";
+      color: var(--gold);
+      font-weight: bold;
+      position: absolute;
+      left: 0;
+    }
+
+    .footer-box {
+      border-top: 1.5px solid var(--border);
+      padding-top: 8px;
+    }
+
+    .advisor-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--gold-light);
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+
+    .disclaimer {
+      font-size: 9.5px;
+      color: var(--muted);
+      line-height: 1.35;
+    }
+
+    .hidden { display: none; }
+
+    @page {
+      size: A4 portrait;
+      margin: 6mm;
+    }
+
+    @media print {
+      body { background: #fff; padding: 0; }
+      .controls { display: none !important; }
+      .app-shell { display: block; max-width: 100%; }
+      .a4-sheet {
+        width: 100%;
+        min-height: auto;
+        box-shadow: none;
+        border-radius: 0;
+        padding: 4mm 6mm;
+        page-break-after: avoid;
+      }
+    }
+
+    @media (max-width: 980px) {
+      .app-shell { grid-template-columns: 1fr; }
+      .a4-sheet { width: 100%; min-height: auto; padding: 14px; }
+      .kpi-grid, .highlights-list, .pay-receive-box { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <!-- INPUT CONTROLS -->
+    <aside class="controls">
+      <h2>Customer & Plan Inputs</h2>
+
+      <div class="field">
+        <label for="customerName">Customer Name</label>
+        <input id="customerName" type="text" value="Deepika Sharma" oninput="renderSheet()" />
+      </div>
+
+      <div class="row-2">
+        <div class="field">
+          <label for="customerAge">Age (Years)</label>
+          <input id="customerAge" type="number" value="36" min="0" max="90" oninput="renderSheet()" />
+        </div>
+        <div class="field">
+          <label for="payMode">Premium Mode</label>
+          <select id="payMode" onchange="renderSheet()">
+            <option value="Yearly" selected>Yearly</option>
+            <option value="Single">Single Premium</option>
+            <option value="Half-Yearly">Half-Yearly</option>
+            <option value="Quarterly">Quarterly</option>
+            <option value="Monthly">Monthly</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="planKey">Select LIC Plan</label>
+        <select id="planKey" onchange="applyPlanDefaults(); renderSheet();">
+          <option value="utsav771" selected>Jeevan Utsav (Plan 771)</option>
+          <option value="shanti758">New Jeevan Shanti (Plan 758)</option>
+          <option value="lakshya733">Jeevan Lakshya (Plan 733)</option>
+          <option value="dhara892">New Jeevan Dhara-II (Plan 892)</option>
+          <option value="index873">Index Plus (Plan 873 - ULIP)</option>
+          <option value="custom">Custom / Any Other Plan</option>
+        </select>
+      </div>
+
+      <div id="customPlanFields" class="row-2 hidden">
+        <div class="field">
+          <label for="customName">Custom Plan Name</label>
+          <input id="customName" type="text" value="LIC Plan" oninput="renderSheet()" />
+        </div>
+        <div class="field">
+          <label for="customUin">Plan No. & UIN</label>
+          <input id="customUin" type="text" value="Plan XXX | UIN: XXXXX" oninput="renderSheet()" />
+        </div>
+      </div>
+
+      <div class="row-2">
+        <div class="field">
+          <label for="sumAssured">Basic Sum Assured (₹)</label>
+          <input id="sumAssured" type="number" value="500000" step="50000" oninput="renderSheet()" />
+        </div>
+        <div class="field">
+          <label for="premiumInput">Entered Premium (₹)</label>
+          <input id="premiumInput" type="number" value="57500" step="500" oninput="renderSheet()" />
+        </div>
+      </div>
+
+      <div class="row-2">
+        <div class="field">
+          <label for="policyTerm">Policy Term (Yrs)</label>
+          <input id="policyTerm" type="number" value="64" min="1" max="85" oninput="renderSheet()" />
+        </div>
+        <div class="field" id="pptField">
+          <label id="pptLabel" for="pptOrDef">PPT / Deferment (Yrs)</label>
+          <input id="pptOrDef" type="number" value="10" min="0" max="50" oninput="renderSheet()" />
+        </div>
+      </div>
+
+      <div class="row-2">
+        <div class="field" id="deferField">
+          <label for="deferYrs">Deferment / Payout Start (Yrs)</label>
+          <input id="deferYrs" type="number" value="2" min="0" max="30" oninput="renderSheet()" />
+        </div>
+        <div class="field">
+          <label id="benefitInputLabel" for="manualBenefit">Illustrative / Quote Payout (₹)</label>
+          <input id="manualBenefit" type="number" value="3300000" step="10000" oninput="renderSheet()" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="advisorInfo">Advisor / Agency Footer</label>
+        <input id="advisorInfo" type="text" value="LIC Authorized Advisor | Ambernath, Maharashtra | Call/WhatsApp: +91-XXXXXXXXXX" oninput="renderSheet()" />
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-print" onclick="window.print()">Print / Save 1-Page PDF</button>
+        <button class="btn-reset" onclick="resetDefaults()">Reset</button>
+      </div>
+    </aside>
+
+    <!-- 1-PAGE A4 OUTPUT -->
+    <main class="a4-sheet" id="a4Sheet">
+      <div>
+        <div class="header-top">
+          <div>
+            <div class="brand-tag" id="sheetTag">1-Page Plan Highlight Summary</div>
+            <div class="plan-title" id="sheetPlanTitle">LIC's Jeevan Utsav (Plan 771)</div>
+            <div class="uin-line" id="sheetUin">UIN: 512N363V02 • Whole-Life Guaranteed Income Plan</div>
+          </div>
+          <div class="client-badge">
+            <div class="for-label">Customized For</div>
+            <div class="client-name" id="sheetClientName">Deepika Sharma</div>
+            <div class="client-meta" id="sheetClientMeta">Age: 36 yrs • Mode: Yearly</div>
+          </div>
+        </div>
+
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="k-label" id="kpi1Label">Basic Sum Assured</div>
+            <div class="k-val" id="kpi1Val">₹5,00,000</div>
+            <div class="k-sub" id="kpi1Sub">Core base cover</div>
+          </div>
+          <div class="kpi-card">
+            <div class="k-label" id="kpi2Label">Payment Structure</div>
+            <div class="k-val" id="kpi2Val">10 Yrs PPT</div>
+            <div class="k-sub" id="kpi2Sub">Policy Term: 64 Yrs</div>
+          </div>
+          <div class="kpi-card">
+            <div class="k-label" id="kpi3Label">Premium Commitment</div>
+            <div class="k-val" id="kpi3Val">₹57,500 / yr</div>
+            <div class="k-sub" id="kpi3Sub">~₹158 / day approx.</div>
+          </div>
+          <div class="kpi-card">
+            <div class="k-label" id="kpi4Label">Key Benefit Milestone</div>
+            <div class="k-val" id="kpi4Val">₹50,000 / yr</div>
+            <div class="k-sub" id="kpi4Sub">Starts at Age 48</div>
+          </div>
+        </div>
+
+        <div class="pay-receive-box">
+          <div class="pr-item">
+            <div class="pr-label">Total Premiums Paid</div>
+            <div class="pr-amt" id="totalPaidVal">₹5,75,000</div>
+            <div class="pr-note" id="totalPaidNote">Across 10 payment years</div>
+          </div>
+          <div class="pr-item">
+            <div class="pr-label" id="totalRecvLabel">Total / Illustrative Benefit</div>
+            <div class="pr-amt" id="totalRecvVal">₹33,00,000</div>
+            <div class="pr-note" id="totalRecvNote">Includes annual income & GA</div>
+          </div>
+          <div class="pr-item">
+            <div class="pr-label">Pay vs. Benefit Multiple</div>
+            <div class="pr-amt" id="multipleVal">5.74x</div>
+            <div class="pr-note" id="multipleNote">Indicative illustration</div>
+          </div>
+        </div>
+
+        <div class="highlights-box">
+          <h3>Key Plan Highlights</h3>
+          <ul class="highlights-list" id="highlightsList"></ul>
+        </div>
+      </div>
+
+      <div class="footer-box">
+        <div class="advisor-bar" id="sheetAdvisor">
+          LIC Authorized Advisor | Ambernath, Maharashtra | Call/WhatsApp: +91-XXXXXXXXXX
+        </div>
+        <div class="disclaimer" id="sheetDisclaimer">
+          Disclaimer: Figures shown are indicative illustrations based on entered parameters and selected quote values; actual benefits, bonus/annuity rates, tax rules, and underwriting terms apply as per LIC policy conditions and official sales brochure.
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const PLANS = {
+      utsav771: {
+        title: "LIC's Jeevan Utsav (Plan 771)",
+        uin: "UIN: 512N363V02 • Non-Par, Non-Linked Whole-Life Savings & Income",
+        tag: "Lifetime Income & Protection",
+        sa: 500000, prem: 57500, term: 64, ppt: 10, def: 2, benefit: 3300000,
+        showPpt: true, showDef: true, pptLabel: "Premium Paying Term (Yrs)", defLabel: "Deferment Period (Yrs)",
+        benefitLabel: "Total Illustrative Benefit (₹)"
+      },
+      shanti758: {
+        title: "LIC's New Jeevan Shanti (Plan 758)",
+        uin: "UIN: 512N338V08 • Single-Premium Deferred Annuity Plan",
+        tag: "Single-Pay Pension / Annuity",
+        sa: 1000000, prem: 1000000, term: 10, ppt: 1, def: 5, benefit: 75000,
+        showPpt: false, showDef: true, pptLabel: "PPT (Single)", defLabel: "Deferment Period (Yrs)",
+        benefitLabel: "Illustrative Annual Annuity (₹)"
+      },
+      lakshya733: {
+        title: "LIC's Jeevan Lakshya (Plan 733)",
+        uin: "UIN: 512N297V03 • Participating Non-Linked Limited-Pay Endowment",
+        tag: "Family Protection + Maturity",
+        sa: 1000000, prem: 62000, term: 21, ppt: 18, def: 0, benefit: 1850000,
+        showPpt: false, showDef: false, pptLabel: "PPT (Term - 3)", defLabel: "Deferment",
+        benefitLabel: "Illustrative Maturity Value (₹)"
+      },
+      dhara892: {
+        title: "LIC's New Jeevan Dhara-II (Plan 892)",
+        uin: "UIN: 512N398V01 • Non-Par, Non-Linked Deferred Annuity Plan",
+        tag: "Flexible Deferred Annuity",
+        sa: 500000, prem: 100000, term: 15, ppt: 10, def: 5, benefit: 65000,
+        showPpt: true, showDef: true, pptLabel: "Payment Term (Yrs)", defLabel: "Deferment Period (Yrs)",
+        benefitLabel: "Illustrative Annual Annuity (₹)"
+      },
+      index873: {
+        title: "LIC's Index Plus (Plan 873)",
+        uin: "UIN: 512L354V01 • Unit Linked Insurance Plan (ULIP)",
+        tag: "Market-Linked Index + Life Cover",
+        sa: 1000000, prem: 100000, term: 15, ppt: 15, def: 0, benefit: 2150000,
+        showPpt: true, showDef: false, pptLabel: "Premium Paying Term (Yrs)", defLabel: "Deferment",
+        benefitLabel: "Illustrative Fund Value (₹)"
+      },
+      custom: {
+        title: "Custom LIC Plan",
+        uin: "Plan No. & UIN as applicable",
+        tag: "Custom Plan Summary",
+        sa: 500000, prem: 50000, term: 20, ppt: 15, def: 0, benefit: 1200000,
+        showPpt: true, showDef: true, pptLabel: "PPT / Term (Yrs)", defLabel: "Deferment / Gap (Yrs)",
+        benefitLabel: "Illustrative / Target Benefit (₹)"
+      }
+    };
+
+    const fmtINR = (n) => "₹" + Math.round(Number(n) || 0).toLocaleString("en-IN");
+
+    function applyPlanDefaults() {
+      const key = document.getElementById("planKey").value;
+      const p = PLANS[key] || PLANS.custom;
+      document.getElementById("customPlanFields").classList.toggle("hidden", key !== "custom");
+      document.getElementById("pptField").classList.toggle("hidden", !p.showPpt);
+      document.getElementById("deferField").classList.toggle("hidden", !p.showDef);
+      document.getElementById("pptLabel").textContent = p.pptLabel;
+      document.getElementById("deferField").querySelector("label").textContent = p.defLabel;
+      document.getElementById("benefitInputLabel").textContent = p.benefitLabel;
+
+      document.getElementById("sumAssured").value = p.sa;
+      document.getElementById("premiumInput").value = p.prem;
+      document.getElementById("policyTerm").value = p.term;
+      document.getElementById("pptOrDef").value = p.ppt;
+      document.getElementById("deferYrs").value = p.def;
+      document.getElementById("manualBenefit").value = p.benefit;
+    }
+
+    function resetDefaults() {
+      document.getElementById("customerName").value = "Deepika Sharma";
+      document.getElementById("customerAge").value = 36;
+      document.getElementById("payMode").value = "Yearly";
+      document.getElementById("planKey").value = "utsav771";
+      applyPlanDefaults();
+      renderSheet();
+    }
+
+    function renderSheet() {
+      const key = document.getElementById("planKey").value;
+      const p = PLANS[key] || PLANS.custom;
+      const name = (document.getElementById("customerName").value || "Valued Customer").trim();
+      const age = Math.max(0, Number(document.getElementById("customerAge").value) || 0);
+      const mode = document.getElementById("payMode").value;
+      const sa = Math.max(0, Number(document.getElementById("sumAssured").value) || 0);
+      const prem = Math.max(0, Number(document.getElementById("premiumInput").value) || 0);
+      const term = Math.max(1, Number(document.getElementById("policyTerm").value) || 1);
+      const def = Math.max(0, Number(document.getElementById("deferYrs").value) || 0);
+      const benefitVal = Math.max(0, Number(document.getElementById("manualBenefit").value) || 0);
+
+      let ppt = Math.max(1, Number(document.getElementById("pptOrDef").value) || 1);
+      if (key === "lakshya733") ppt = Math.max(1, term - 3);
+      if (key === "shanti758") ppt = 1;
+
+      const annualEquivalent =
+        mode === "Single" ? prem :
+        mode === "Yearly" ? prem :
+        mode === "Half-Yearly" ? prem * 2 :
+        mode === "Quarterly" ? prem * 4 : prem * 12;
+
+      const totalPaid = mode === "Single" ? prem : annualEquivalent * ppt;
+      const dailyApprox = annualEquivalent / 365;
+      const startAge = age + ppt + def;
+
+      let title = p.title;
+      let uin = p.uin;
+      if (key === "custom") {
+        title = document.getElementById("customName").value || "Custom LIC Plan";
+        uin = document.getElementById("customUin").value || "Plan & UIN as applicable";
+      }
+
+      document.getElementById("sheetTag").textContent = p.tag;
+      document.getElementById("sheetPlanTitle").textContent = title;
+      document.getElementById("sheetUin").textContent = uin;
+      document.getElementById("sheetClientName").textContent = name;
+      document.getElementById("sheetClientMeta").textContent = `Age: ${age} yrs • Mode: ${mode}`;
+
+      document.getElementById("kpi1Label").textContent = key === "index873" ? "Indicative Cover (10x Prem)" : "Basic Sum Assured";
+      const displaySa = key === "index873" ? Math.max(sa, annualEquivalent * 10) : sa;
+      document.getElementById("kpi1Val").textContent = fmtINR(displaySa);
+      document.getElementById("kpi1Sub").textContent = key === "index873" ? "7x / 10x annualized premium rule" : "Base policy sum assured";
+
+      document.getElementById("kpi2Label").textContent = "Premium & Term";
+      document.getElementById("kpi2Val").textContent = mode === "Single" ? "Single Pay" : `${ppt} Yrs Pay`;
+      document.getElementById("kpi2Sub").textContent = key === "lakshya733" ? `Term: ${term} Yrs (Term - 3 pay)` : `Term: ${term} Yrs`;
+
+      document.getElementById("kpi3Label").textContent = `${mode} Outflow`;
+      document.getElementById("kpi3Val").textContent = fmtINR(prem);
+      document.getElementById("kpi3Sub").textContent = `~${fmtINR(dailyApprox)} / day approx.`;
+
+      let kpi4Label = "Illustrative Payout";
+      let kpi4Val = fmtINR(benefitVal);
+      let kpi4Sub = "As per selected quote";
+      let highlights = [];
+
+      if (key === "utsav771") {
+        const gaPerYr = (sa / 1000) * 40;
+        const totalGa = gaPerYr * ppt;
+        const yearlyInc = sa * 0.10;
+        kpi4Label = "Annual Guaranteed Income";
+        kpi4Val = fmtINR(yearlyInc);
+        kpi4Sub = `Starts ~Age ${startAge} (after ${ppt}y PPT + ${def}y def.)`;
+        highlights = [
+          `Guaranteed Additions accrue at ₹40 per ₹1,000 BSA during PPT (${fmtINR(gaPerYr)}/yr = ${fmtINR(totalGa)}).`,
+          `Guaranteed income of ${fmtINR(yearlyInc)}/yr (10% of BSA) post deferment (Regular or Flexi 5.5% p.a.).`,
+          `Whole-life coverage structure; surrender value applies if encashed rather than standard maturity lump sum.`,
+          `Loan and surrender provisions apply after policy eligibility conditions are met.`
+        ];
+      } else if (key === "shanti758") {
+        kpi4Label = "Annuity Start Age";
+        kpi4Val = `Age ${age + def}`;
+        kpi4Sub = `After ${def}-yr deferment`;
+        highlights = [
+          `Single-premium deferred annuity with Single Life or Joint Life options.`,
+          `Annuity rate locks in at purchase; payments available yearly, half-yearly, quarterly, or monthly.`,
+          `Deferment period allows pension income to start later as per retirement plan.`,
+          `Death/return-of-purchase-price options depend on chosen annuity variant and policy terms.`
+        ];
+      } else if (key === "lakshya733") {
+        const annualFamilyInc = sa * 0.10;
+        kpi4Label = "Maturity / Family Cover";
+        kpi4Val = fmtINR(benefitVal);
+        kpi4Sub = `Pay for ${ppt} yrs for ${term}-yr cover`;
+        highlights = [
+          `Limited payment: pay premiums for ${ppt} years (Policy Term minus 3 years) for a ${term}-year term.`,
+          `In case of unfortunate demise of an in-force policy, annual income benefit (10% of BSA) supports family till maturity.`,
+          `Maturity benefit combines Basic Sum Assured plus declared bonuses/FAB if eligible.`,
+          `Optional riders (such as accidental cover) and policy loan/surrender rules apply per brochure.`
+        ];
+      } else if (key === "dhara892") {
+        kpi4Label = "Annuity Start Age";
+        kpi4Val = `Age ${startAge}`;
+        kpi4Sub = `After ${ppt}y pay + ${def}y deferment`;
+        highlights = [
+          `Deferred annuity plan offering Single/Regular pay and Single or Joint Life annuity options.`,
+          `Flexible deferment period before annuity payouts begin in chosen frequency.`,
+          `Includes options such as return-of-premium/gradual return variants and top-up rules per brochure.`,
+          `Guaranteed annuity rates for selected option subject to LIC terms and conditions.`
+        ];
+      } else if (key === "index873") {
+        kpi4Label = "Illustrative Fund Value";
+        kpi4Val = fmtINR(benefitVal);
+        kpi4Sub = "Market-linked (non-guaranteed)";
+        highlights = [
+          `Unit Linked Insurance Plan (ULIP) linked to market index funds (e.g., Flexi Growth / Flexi Smart Growth).`,
+          `Returns are market-linked and NOT guaranteed; fund value fluctuates with market performance.`,
+          `5-year lock-in period applies; partial withdrawals allowed after lock-in per plan rules.`,
+          `Life cover is higher of Sum Assured or fund value (subject to policy terms and charges).`
+        ];
+      } else {
+        kpi4Label = "Target / Quote Value";
+        kpi4Val = fmtINR(benefitVal);
+        kpi4Sub = `Term: ${term} years`;
+        highlights = [
+          `Tailored 1-page summary for ${title} (${uin}).`,
+          `Premium payment mode: ${mode} (${fmtINR(prem)} per installment).`,
+          `Total scheduled outlay across payment period: ${fmtINR(totalPaid)}.`,
+          `Verify exact eligibility, riders, tax rules, and policy conditions from official LIC brochure.`
+        ];
+      }
+
+      document.getElementById("kpi4Label").textContent = kpi4Label;
+      document.getElementById("kpi4Val").textContent = kpi4Val;
+      document.getElementById("kpi4Sub").textContent = kpi4Sub;
+
+      const totalRecv = key === "utsav771" && benefitVal === 0 ? (sa * 0.10 * 20 + (sa / 1000) * 40 * ppt) : benefitVal;
+      const multiple = totalPaid > 0 ? (totalRecv / totalPaid).toFixed(2) + "x" : "—";
+
+      document.getElementById("totalPaidVal").textContent = fmtINR(totalPaid);
+      document.getElementById("totalPaidNote").textContent = mode === "Single" ? "One-time single premium" : `For ${ppt} payment year(s)`;
+      document.getElementById("totalRecvVal").textContent = fmtINR(totalRecv);
+      document.getElementById("totalRecvNote").textContent = benefitInputLabelText(key);
+      document.getElementById("multipleVal").textContent = multiple;
+      document.getElementById("multipleNote").textContent = key === "index873" ? "Subject to market risk" : "Indicative illustration";
+
+      document.getElementById("highlightsList").innerHTML = highlights.map((h) => `<li>${h}</li>`).join("");
+      document.getElementById("sheetAdvisor").textContent = document.getElementById("advisorInfo").value;
+    }
+
+    function benefitInputLabelText(key) {
+      if (key === "shanti758" || key === "dhara892") return "Entered annual annuity quote";
+      if (key === "index873") return "Entered illustrative fund value";
+      return "Entered illustrative / quote payout";
+    }
+
+    applyPlanDefaults();
+    renderSheet();
+  </script>
+</body>
+</html>
